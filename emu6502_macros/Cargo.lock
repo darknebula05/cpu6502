@@ -3,17 +3,9 @@
 version = 3
 
 [[package]]
-name = "emu6502"
-version = "0.1.0"
-dependencies = [
- "emu6502_macros",
-]
-
-[[package]]
 name = "emu6502_macros"
 version = "0.1.0"
 dependencies = [
- "proc-macro2",
  "quote",
  "syn",
 ]
