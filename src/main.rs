@@ -1,25 +1,7 @@
-use emu6502::prelude::*;
+use cpu6502::*;
 
 fn main() {
-    foo();
-}
-
-#[derive(AddressingMode)]
-enum Modes {
-    Absolute,
-    AbsoluteIndexedIndirect,
-    AbsoluteIndexedX,
-    AbsoluteIndexedY,
-    AbsoluteIndirect,
-    Accumulator,
-    Immediate,
-    Implied,
-    ProgramCounterRelative,
-    Stack,
-    ZeroPage,
-    ZeroPageIndexedIndirect,
-    ZeroPageIndexedX,
-    ZeroPageIndexedY,
-    ZeroPageIndirect,
-    ZeroPageIndirectIndexedY,
+    let cpu = Cpu6502::default();
+    println!("{cpu:?}");
+    println!("{:?}", LOOKUP);
 }
