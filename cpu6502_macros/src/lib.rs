@@ -80,7 +80,7 @@ pub fn instructions(input: TokenStream) -> TokenStream {
     }
     let quote = quote! {
         {
-            let mut array  = [[""; 3]; 256];
+            let mut array: [(&str, fn(&mut Cpu6502) -> u8, &str); 256]  = [("", |a: &mut Cpu6502| 0, ""); 256];
             #(#expanded)*
             array
         }
@@ -96,7 +96,7 @@ fn generate_instruction(instruction: Instruction) -> TokenStream2 {
     let mut modes = vec![];
     for mode in instruction.modes {
         let addressing = mode.name;
-        let addressing_str = addressing.to_string();
+        // let addressing_str = addressing.to_string();
         let opcode = mode.opcode;
         let additional = mode.additional.to_token_stream().to_string();
         let cycles = if additional.len() > 0 {
@@ -106,7 +106,7 @@ fn generate_instruction(instruction: Instruction) -> TokenStream2 {
         };
         let span = mode.span;
         modes.extend(quote_spanned!(span=>
-            array[#opcode] = [#name_str, #addressing_str, #cycles];
+            array[#opcode] = (#name_str, Self::#addressing, #cycles);
         ));
     }
     quote_spanned!(instruction.span=>

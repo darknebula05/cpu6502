@@ -214,7 +214,7 @@ impl Cpu6502 {
     fn txs(&mut self) {}
     fn tya(&mut self) {}
 
-    pub const LOOKUP: [[&str; 3]; 256] = instructions!(
+    pub const LOOKUP: [(&str, fn(&mut Cpu6502) -> u8, &str); 256] = instructions!(
         adc: (imm, 0x69, 2), (abs, 0x6d, 4), (abs_x, 0x7d, 4+p), (abs_y, 0x79, 4+p), (zp, 0x65, 3), (zp_x, 0x75, 4), (zp_x_indirect, 0x61, 6), (zp_y_indirect, 0x71, 5+p);
         and: (imm, 0x29, 2), (abs, 0x2d, 4), (abs_x, 0x3d, 4+p), (abs_y, 0x39, 4+p), (zp, 0x25, 3), (zp_x, 0x35, 4), (zp_x_indirect, 0x21, 6), (zp_y_indirect, 0x31, 5+p);
         asl: (acc, 0x0a, 2), (abs, 0x0e, 6), (abs_x, 0x1e, 7), (zp, 0x06, 5), (zp_x, 0x16, 6);
