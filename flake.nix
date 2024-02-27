@@ -14,13 +14,19 @@
         pkgs = import nixpkgs {
           inherit system overlays;
         };
-        toolchain = fenix.packages.${system}.default.toolchain;
+        toolchain = fenix.packages.${system}.stable;
       in
       {
         devShells.default = pkgs.mkShell {
-          buildInputs = [
-            toolchain
-            pkgs.rust-analyzer-nightly
+          buildInputs = with pkgs; [
+            (toolchain.withComponents [
+              "cargo"
+              "clippy"
+              "rust-src"
+              "rustc"
+              "rustfmt"
+            ])
+            rust-analyzer
           ];
         };
       }
